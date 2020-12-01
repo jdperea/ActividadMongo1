@@ -21,10 +21,35 @@ env(__dirname + '/.env');
             console.log("Conexion a base de datos exitosa");
         }
     });
-    router.get('/test', function (req, res) {
-        res.send("Testeando");
-    });
     router.post('/save', function (req, res) {
+        
+
+    });
+
+    router.get('/all-tasks', function (req, res) {
+        TaskModel.find(function (err, data) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send(data);
+            }
+        });
+    });
+    
+    router.get('/get-task/:TaskId', function (req, res) {
+        TaskModel.findOne({ TaskId: req.params.TaskId }, function (err, data) {
+            if (err) {
+                console.log(err);
+                res.send("Internal error");
+            } else {
+                res.send(data);
+            }
+        });
+    });
+    
+    
+    router.post('/create-task', function (req, res) {
         let task_id,name,deadline; // Tuve que declarar las variables así para que las tomara en todo el contexto. Lo otro en el body en mi local estaba tomando como indefinido y dejaba los valores vacios en mongo
         if(req.body.TaskId != undefined){
             task_id = req.body.TaskId;
@@ -58,7 +83,30 @@ env(__dirname + '/.env');
                 }
             });
         }
-
+    });
+    
+    router.post('/update-task', function (req, res) {
+        TaskModel.updateOne({ TaskId: req.body.TaskId }, {
+            Name: req.body.Name,
+            DeadLine: req.body.DeadLine
+        }, function (err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(data); console.log("Data Updated!");
+            }
+        });
+    });
+    
+    
+    router.delete("/delete-task", function (req, res) {
+        TaskModel.deleteOne({ TaskId: req.body.TaskId }, function (err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(data); console.log("Data Deleted!");
+            }
+        });
     });
 
 module.exports = router;
