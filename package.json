@@ -1,15 +1,20 @@
 {
-  "name": "test-mongo-g1",
+  "name": "actividadmongo1",
   "version": "1.0.0",
-  "description": "MongoDB playground",
+  "description": "Prueba de conexion a MongoDB",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Carlos Tovar",
+  "keywords": [
+    "Mongo"
+  ],
+  "author": "@jdperea59",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.11.0"
+    "mongoose": "^5.11.0",
+    "node-env-file": "^0.1.8",
+    "save": "^2.4.0"
   }
 }
