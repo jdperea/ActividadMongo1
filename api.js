@@ -41,17 +41,24 @@ env(__dirname + '/.env');
             Name: name,
             Deadline: deadline,
         }
-        console.log(task);
-        var newTask = new TaskModel(task);
-        
-        newTask.save(function (err, data) {
-            if (err) {
-                console.log(error);
-            }
-            else {
-                res.send("Data inserted");
-            }
-        });
+        if(task_id == undefined && name == undefined && deadline == undefined)
+        {
+            console.log(task);
+            res.send("Check Data parameters");
+        } else {
+            var newTask = new TaskModel(task);
+            
+            newTask.save(function (err, data) {
+                if (err) {
+                    console.log(error);
+                    res.send("Error No Data inserted");
+                }
+                else {
+                    res.send("Data inserted");
+                }
+            });
+        }
+
     });
 
 module.exports = router;
